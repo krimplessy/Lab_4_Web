@@ -1,0 +1,80 @@
+<html>
+<link rel="stylesheet" href="style.css">
+
+<head>
+    <title> Покупатели </title>
+    {% macro render_table(table_name, relation) %}
+    <div>
+        <p align=center>
+            <b>{{table_name}} </b>
+            {% set n = len(relation) %}
+        </p>
+        <table>
+            <tr>
+                {% for name in relation.dtypes.index %}
+                <th>{{name}}</th>
+                {% endfor %}
+            </tr>
+
+            <tbody>
+                {% for i in range(n) %}
+                <tr>
+                    {% for name in relation.dtypes.index %}
+                        <td> {{ relation.loc[i, name] }} </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endmacro %}
+</head>
+
+<body>
+    {% macro render_card(combo_box1, combo_box2) %}
+    <p>
+    <form>
+        Автор:
+        <select name="author">
+        {% set n = len(combo_box1) %}
+
+        {% for i in range(n) %}
+            {% set name_au = combo_box1.loc[i, "name_author"] %}
+            
+            {% if name_au == name_author %}
+                <option selected value={{name_au}}> 
+            {% else %}
+                <option value={{name_au}}> 
+            {% endif %}
+                {{ combo_box1.loc[i, "name_author"] }}
+            </option>
+        {% endfor %}
+        </select>
+
+        Жанр:
+        <select name="genre">
+            {% set n = len(combo_box2) %}
+    
+            {% for i in range(n) %}
+                {% set name_g = combo_box2.loc[i, "name_genre"] %}
+                
+                {% if name_g == name_genre %}
+                    <option selected value={{name_g}}> 
+                {% else %}
+                    <option value={{name_g}}> 
+                {% endif %}
+                    {{ combo_box2.loc[i, "name_genre"] }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Найти">
+    </form>
+    </p>
+    {% endmacro %}
+
+    {{ render_card(combo_box_au, combo_box_g)}}
+    {{ render_table("Покупатели", clients) }}
+</body>
+
+</html>

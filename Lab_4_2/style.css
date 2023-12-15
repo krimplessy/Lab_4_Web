@@ -1,0 +1,15 @@
+table {
+    border: black solid thin
+}
+
+table td, th{
+    border: darkgrey solid thin
+}
+
+div {
+    display: inline;
+    float: left;
+    margin: 0px 15px;
+    /* border: solid thin green; */
+    width: auto;
+}
